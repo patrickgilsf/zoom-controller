@@ -1,5 +1,6 @@
 //node HID import
 var HID = require('node-hid');
+const { exec } = require('child_process');
 
 //Device in for for ymd09
 var VENDOR_ID = 0x594D; //22861
@@ -8,76 +9,63 @@ var USAGE_PAGE = 0xFF60; //65376
 var usagePageNumber = 65376;
 var USAGE = 0x61; //97
 var deviceList = HID.devices();
-//console.log(deviceList);
+// console.log(deviceList);
 var path = ''; 
+
 deviceList.forEach(item => {
   if (item.usagePage == USAGE_PAGE) {
     path = item.path;
   }
 });
 var device = new HID.HID(path);
+console.log(path);
 
-const muteMic = () => {
+
+
+const muteMicStopVid = () => {
     device.write([0x00, 0x01, 0x01, 0x01, 0x01, 0x01])
 };
-const unmuteMic = () => {
+const muteMicStartVid = () => {
     device.write([0x00, 0x02, 0x02, 0x02, 0x02, 0x02])
 };
-const muteVid = () => {
+const unmuteMicStopVid = () => {
   device.write([0x00, 0x03, 0x03, 0x03, 0x03, 0x03])
 };
-const unmuteVid = () => {
+const unmuteMicStartVid = () => {
   device.write([0x00, 0x04, 0x04, 0x04, 0x04, 0x04])
 };
 
 
-  muteMic()
-  // unmuteMic()
-  muteVid()
-  // unmuteVid()
 
 
 
 
- var device = new HID.HID(path);
+var checkStatus = function() {
+    console.log('Checking status...');
+    exec('osascript get-zoom-status_with-video.scpt', (error, stdout, stderr) => {
+        console.log(stdout);
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
 
-//Feedback not working
-// device.on('error', (err) => {
-//   console.log(err);
-//   device.close();
-// });
+        var status = JSON.parse(stdout);
+        if (status.mute == "muted" && status.video == "stop") {
+          muteMicStopVid();
+        } else if (status.mute == "muted" && status.video == "start") {
+          muteMicStartVid();
+        } else if (status.mute == "unmuted" && status.video == "stop") {
+          unmuteMicStopVid();
+        } else if (status.mute == "unmuted" && status.video == "startd") {
+          unmuteMicStartVid();
+        }
 
-// device.on('data', (data) => {
-//   if (data) {
-//     console.log(data)
-//   }
-// })
-
-//need feedback for this to work
-// var micMute = false;
-// var vidMute = false;
-// const toggleMicMute = () => {
-//   if (micMute) {
-//     unmuteMic();
-//   } else {
-//     muteMic();
-//   }
-// };
-
-// const toggleVidMute = () => {
-//   if (vidMute) {
-//     unmuteVid();
-//   } else {
-//     muteVid();
-//   }
-// }
-
-// toggleMicMute();
-// toggleVidMute();
+    });
+}
 
 
-
-
+checkStatus();
+setInterval(checkStatus, 3000);
 
 
 
