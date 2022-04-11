@@ -9,11 +9,15 @@
   "author": "Patrick Gilligan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.3",
-    "forever": "^4.0.3",
-    "forever-monitor": "^3.0.3",
-    "node-hid": "^2.1.1",
-    "node-osascript": "^2.1.0",
-    "peer": "^0.6.1"
-  }
+    "node-hid": "^2.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickgilsf/node-hid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patrickgilsf/node-hid/issues"
+  },
+  "homepage": "https://github.com/patrickgilsf/node-hid#readme"
 }
