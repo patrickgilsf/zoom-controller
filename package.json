@@ -1,5 +1,5 @@
 {
-  "name": "hid_test",
+  "name": "zoom-controller",
   "version": "1.0.0",
   "description": "testing node hid with my qmk",
   "main": "index.js",
