@@ -1,8 +1,8 @@
 {
-  "name": "zoom-controller",
+  "name": "@patrickgilsf/zoom-controller",
   "version": "1.0.0",
   "description": "testing node hid with my qmk",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/patrickgilsf/node-hid/issues"
   },
-  "homepage": "https://github.com/patrickgilsf/node-hid#readme"
+  "homepage": "https://github.com/patrickgilsf/node-hid#readme",
+  "start": "node app.js"
 }
