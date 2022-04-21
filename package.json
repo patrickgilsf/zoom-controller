@@ -9,9 +9,9 @@
   "author": "Patrick Gilligan",
   "license": "ISC",
   "dependencies": {
+    "@patrickgilsf/zoom-controller": "^1.0.0",
     "node-hid": "^2.1.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/patrickgilsf/node-hid.git"
