@@ -17,8 +17,11 @@ deviceList.forEach(item => {
     path = item.path;
   }
 });
-var device = new HID.HID(path);
-console.log(path);
+if (path) {
+  console.log(`patth(S{path}) found!`);
+  var device = new HID.HID(path);
+}
+
 
 
 
@@ -63,9 +66,13 @@ var checkStatus = function() {
     });
 }
 
+if (device) {
+  checkStatus();
+  setInterval(checkStatus, 3000);
+} else {
+  console.log(`No device connected, please connect Zoom controller`);
+}
 
-checkStatus();
-setInterval(checkStatus, 3000);
 
 
 
